@@ -10,6 +10,9 @@ import com.wang.wangpicturebackend.exception.BusinessException;
 import com.wang.wangpicturebackend.exception.ErrorCode;
 import com.wang.wangpicturebackend.exception.ThrowUtils;
 import com.wang.wangpicturebackend.manager.FileManager;
+import com.wang.wangpicturebackend.manager.upload.FilePictureUpload;
+import com.wang.wangpicturebackend.manager.upload.PictureUploadTemplate;
+import com.wang.wangpicturebackend.manager.upload.UrlPictureUpload;
 import com.wang.wangpicturebackend.model.dto.file.UploadPictureResult;
 import com.wang.wangpicturebackend.model.dto.picture.PictureQueryRequest;
 import com.wang.wangpicturebackend.model.dto.picture.PictureReviewRequest;
@@ -23,6 +26,7 @@ import com.wang.wangpicturebackend.sevice.PictureService;
 import com.wang.wangpicturebackend.mapper.PictureMapper;
 import com.wang.wangpicturebackend.sevice.UserService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -43,12 +47,17 @@ import java.util.stream.Collectors;
 public class PictureServiceImpl extends ServiceImpl<PictureMapper, Picture>
         implements PictureService {
     @Resource
-    private FileManager fileManager;
+    private FilePictureUpload filePictureUpload;
+
+    @Resource
+    private UrlPictureUpload urlPictureUpload;
+
     @Resource
     private UserService userService;
 
     @Override
     public PictureVO uploadPicture(Object inputSource, PictureUploadRequest pictureUploadRequest, User loginUser) {
+        ThrowUtils.throwIf(inputSource==null,ErrorCode.PARAMS_ERROR,"图片为空");
         ThrowUtils.throwIf(loginUser == null, ErrorCode.NO_AUTH_ERROR);
         // 用于判断是新增还是更新图片
         Long pictureId = null;
@@ -69,7 +78,12 @@ public class PictureServiceImpl extends ServiceImpl<PictureMapper, Picture>
         // 上传图片，得到信息
         // 按照用户 id 划分目录
         String uploadPathPrefix = String.format("public/%s", loginUser.getId());
-        UploadPictureResult uploadPictureResult = fileManager.uploadPicture((MultipartFile) inputSource, uploadPathPrefix);
+        // 根据 inputSource 的类型区分上传方式
+        PictureUploadTemplate pictureUploadTemplate = filePictureUpload;
+        if (inputSource instanceof String){
+            pictureUploadTemplate = urlPictureUpload;
+        }
+        UploadPictureResult uploadPictureResult = pictureUploadTemplate.uploadPicture(inputSource,uploadPathPrefix);
         // 构造要入库的图片信息
         Picture picture = new Picture();
         picture.setUrl(uploadPictureResult.getUrl());

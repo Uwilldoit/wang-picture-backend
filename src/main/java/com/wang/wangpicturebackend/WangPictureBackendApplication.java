@@ -3,9 +3,13 @@ package com.wang.wangpicturebackend;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
 @MapperScan("com.wang.wangpicturebackend.mapper")
+@EnableAsync
+@EnableAspectJAutoProxy(exposeProxy = true)
 public class WangPictureBackendApplication {
 
     public static void main(String[] args) {

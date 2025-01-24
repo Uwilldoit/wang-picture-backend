@@ -6,9 +6,11 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.qcloud.cos.COSClient;
 import com.wang.wangpicturebackend.exception.BusinessException;
 import com.wang.wangpicturebackend.exception.ErrorCode;
 import com.wang.wangpicturebackend.exception.ThrowUtils;
+import com.wang.wangpicturebackend.manager.CosManager;
 import com.wang.wangpicturebackend.manager.upload.FilePictureUpload;
 import com.wang.wangpicturebackend.manager.upload.PictureUploadTemplate;
 import com.wang.wangpicturebackend.manager.upload.UrlPictureUpload;
@@ -31,6 +33,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.BeanUtils;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -56,6 +59,10 @@ public class PictureServiceImpl extends ServiceImpl<PictureMapper, Picture>
 
     @Resource
     private UserService userService;
+    @Resource
+    private CosManager cosManager;
+
+    public static final String host="https://wang-1312435576.cos.ap-guangzhou.myqcloud.com";
 
     @Override
     public PictureVO uploadPicture(Object inputSource, PictureUploadRequest pictureUploadRequest, User loginUser) {
@@ -203,6 +210,31 @@ public class PictureServiceImpl extends ServiceImpl<PictureMapper, Picture>
         }
         return uploadCount;
     }
+
+    @Async
+    @Override
+    public void clearPictureFile(Picture oldPicture) {
+        // 判断该图片是否被多条记录使用
+        String pictureUrl = oldPicture.getUrl();
+        long count = this.lambdaQuery()
+                .eq(Picture::getUrl, pictureUrl)
+                .count();
+        // 有不止一条记录用到了该图片，不清理
+        if (count > 1) {
+            return;
+        }
+        // FIXME 注意，这里的 url 包含了域名，实际上只要传 key 值（存储路径）就够了
+        String url = oldPicture.getUrl();
+        String key = url.substring(host.length());
+
+        cosManager.deleteObject(key);
+        // 清理缩略图
+        String thumbnailUrl = oldPicture.getThumbnailUrl();
+        if (StrUtil.isNotBlank(thumbnailUrl)) {
+            cosManager.deleteObject(thumbnailUrl);
+        }
+    }
+
 
 
 

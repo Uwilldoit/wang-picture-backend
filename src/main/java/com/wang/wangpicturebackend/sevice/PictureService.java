@@ -2,10 +2,7 @@ package com.wang.wangpicturebackend.sevice;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.wang.wangpicturebackend.model.dto.picture.PictureQueryRequest;
-import com.wang.wangpicturebackend.model.dto.picture.PictureReviewRequest;
-import com.wang.wangpicturebackend.model.dto.picture.PictureUploadByBatchRequest;
-import com.wang.wangpicturebackend.model.dto.picture.PictureUploadRequest;
+import com.wang.wangpicturebackend.model.dto.picture.*;
 import com.wang.wangpicturebackend.model.entity.Picture;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wang.wangpicturebackend.model.entity.User;
@@ -36,6 +33,22 @@ public interface PictureService extends IService<Picture> {
 
     @Async
     void clearPictureFile(Picture oldPicture);
+
+    /**
+     * 检查图片权限
+     * @param loginUser
+     * @param picture
+     */
+    void checkPictureAuth(User loginUser, Picture picture);
+
+    /**
+     * 删除图片
+     * @param pictureId
+     * @param loginUser
+     */
+    void deletePicture(long pictureId, User loginUser);
+
+    void editPicture(PictureEditRequest pictureEditRequest, User loginUser);
 
     QueryWrapper<Picture> getQueryWrapper(PictureQueryRequest pictureQueryRequest);
 

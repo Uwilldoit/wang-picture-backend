@@ -2,6 +2,7 @@ package com.wang.wangpicturebackend.sevice;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.wang.wangpicturebackend.api.aliyunai.model.CreateOutPaintingTaskResponse;
 import com.wang.wangpicturebackend.model.dto.picture.*;
 import com.wang.wangpicturebackend.model.entity.Picture;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -100,4 +101,5 @@ public interface PictureService extends IService<Picture> {
             User loginUser
     );
 
+    CreateOutPaintingTaskResponse createPictureOutPaintingTask(CreatePictureOutPaintingTaskRequest createPictureOutPaintingTaskRequest, User loginUser);
 }

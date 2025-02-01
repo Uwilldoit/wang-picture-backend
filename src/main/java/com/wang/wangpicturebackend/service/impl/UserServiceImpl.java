@@ -1,4 +1,4 @@
-package com.wang.wangpicturebackend.sevice.impl;
+package com.wang.wangpicturebackend.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjUtil;
@@ -12,7 +12,7 @@ import com.wang.wangpicturebackend.model.entity.User;
 import com.wang.wangpicturebackend.model.enums.UserRoleEnum;
 import com.wang.wangpicturebackend.model.vo.LoginUserVO;
 import com.wang.wangpicturebackend.model.vo.UserVO;
-import com.wang.wangpicturebackend.sevice.UserService;
+import com.wang.wangpicturebackend.service.UserService;
 import com.wang.wangpicturebackend.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;

@@ -13,7 +13,7 @@ import com.wang.wangpicturebackend.model.dto.user.*;
 import com.wang.wangpicturebackend.model.entity.User;
 import com.wang.wangpicturebackend.model.vo.LoginUserVO;
 import com.wang.wangpicturebackend.model.vo.UserVO;
-import com.wang.wangpicturebackend.sevice.UserService;
+import com.wang.wangpicturebackend.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,4 +1,4 @@
-package com.wang.wangpicturebackend.sevice;
+package com.wang.wangpicturebackend.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.wang.wangpicturebackend.model.dto.user.UserQueryRequest;

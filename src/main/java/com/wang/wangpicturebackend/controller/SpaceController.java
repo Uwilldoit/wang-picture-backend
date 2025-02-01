@@ -9,16 +9,14 @@ import com.wang.wangpicturebackend.constant.UserConstant;
 import com.wang.wangpicturebackend.exception.BusinessException;
 import com.wang.wangpicturebackend.exception.ErrorCode;
 import com.wang.wangpicturebackend.exception.ThrowUtils;
+import com.wang.wangpicturebackend.manager.auth.SpaceUserAuthManager;
 import com.wang.wangpicturebackend.model.dto.space.*;
-import com.wang.wangpicturebackend.model.entity.Picture;
 import com.wang.wangpicturebackend.model.entity.Space;
 import com.wang.wangpicturebackend.model.entity.User;
 import com.wang.wangpicturebackend.model.enums.SpaceLevelEnum;
-import com.wang.wangpicturebackend.model.vo.PictureVO;
 import com.wang.wangpicturebackend.model.vo.SpaceVO;
-import com.wang.wangpicturebackend.sevice.SpaceService;
-import com.wang.wangpicturebackend.sevice.UserService;
-import com.wang.wangpicturebackend.sevice.impl.SpaceServiceImpl;
+import com.wang.wangpicturebackend.service.SpaceService;
+import com.wang.wangpicturebackend.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,6 +39,8 @@ public class SpaceController {
     private SpaceService spaceService;
     @Resource
     private UserService userService;
+    @Resource
+    private SpaceUserAuthManager spaceUserAuthManager;
 
     @PostMapping("/add")
     public BaseResponse<Long> addSpace(@RequestBody SpaceAddRequest spaceAddRequest, HttpServletRequest request) {
@@ -117,9 +117,12 @@ public class SpaceController {
         ThrowUtils.throwIf(space == null, ErrorCode.NOT_FOUND_ERROR);
         SpaceVO spaceVO = spaceService.getSpaceVO(space, request);
         User loginUser = userService.getLoginUser(request);
+        List<String> permissionList = spaceUserAuthManager.getPermissionList(space, loginUser);
+        spaceVO.setPermissionList(permissionList);
         // 获取封装类
         return ResultUtils.success(spaceVO);
     }
+
 
 
     /**

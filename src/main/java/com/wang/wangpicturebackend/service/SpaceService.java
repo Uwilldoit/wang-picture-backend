@@ -1,14 +1,12 @@
-package com.wang.wangpicturebackend.sevice;
+package com.wang.wangpicturebackend.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wang.wangpicturebackend.model.dto.space.SpaceAddRequest;
 import com.wang.wangpicturebackend.model.dto.space.SpaceQueryRequest;
-import com.wang.wangpicturebackend.model.entity.Picture;
 import com.wang.wangpicturebackend.model.entity.Space;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wang.wangpicturebackend.model.entity.User;
-import com.wang.wangpicturebackend.model.vo.PictureVO;
 import com.wang.wangpicturebackend.model.vo.SpaceVO;
 
 import javax.servlet.http.HttpServletRequest;

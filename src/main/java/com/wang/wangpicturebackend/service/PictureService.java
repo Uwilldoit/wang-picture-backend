@@ -1,4 +1,4 @@
-package com.wang.wangpicturebackend.sevice;
+package com.wang.wangpicturebackend.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -10,7 +10,6 @@ import com.wang.wangpicturebackend.model.entity.User;
 import com.wang.wangpicturebackend.model.vo.PictureVO;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;

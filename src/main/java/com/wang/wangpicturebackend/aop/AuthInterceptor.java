@@ -5,7 +5,7 @@ import com.wang.wangpicturebackend.exception.BusinessException;
 import com.wang.wangpicturebackend.exception.ErrorCode;
 import com.wang.wangpicturebackend.model.entity.User;
 import com.wang.wangpicturebackend.model.enums.UserRoleEnum;
-import com.wang.wangpicturebackend.sevice.UserService;
+import com.wang.wangpicturebackend.service.UserService;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;

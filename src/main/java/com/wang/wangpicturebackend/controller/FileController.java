@@ -16,7 +16,7 @@ import com.wang.wangpicturebackend.constant.UserConstant;
 import com.wang.wangpicturebackend.exception.BusinessException;
 import com.wang.wangpicturebackend.exception.ErrorCode;
 import com.wang.wangpicturebackend.manager.CosManager;
-import com.wang.wangpicturebackend.sevice.UserService;
+import com.wang.wangpicturebackend.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

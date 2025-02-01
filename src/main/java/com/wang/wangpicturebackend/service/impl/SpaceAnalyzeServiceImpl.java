@@ -1,4 +1,4 @@
-package com.wang.wangpicturebackend.sevice.impl;
+package com.wang.wangpicturebackend.service.impl;
 
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.ObjUtil;
@@ -13,10 +13,10 @@ import com.wang.wangpicturebackend.model.dto.space.analyze.*;
 import com.wang.wangpicturebackend.model.entity.Picture;
 import com.wang.wangpicturebackend.model.entity.Space;
 import com.wang.wangpicturebackend.model.entity.User;
-import com.wang.wangpicturebackend.sevice.PictureService;
-import com.wang.wangpicturebackend.sevice.SpaceAnalyzeService;
-import com.wang.wangpicturebackend.sevice.SpaceService;
-import com.wang.wangpicturebackend.sevice.UserService;
+import com.wang.wangpicturebackend.service.PictureService;
+import com.wang.wangpicturebackend.service.SpaceAnalyzeService;
+import com.wang.wangpicturebackend.service.SpaceService;
+import com.wang.wangpicturebackend.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

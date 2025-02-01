@@ -1,4 +1,4 @@
-package com.wang.wangpicturebackend.sevice;
+package com.wang.wangpicturebackend.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wang.wangpicturebackend.model.dto.space.analyze.*;

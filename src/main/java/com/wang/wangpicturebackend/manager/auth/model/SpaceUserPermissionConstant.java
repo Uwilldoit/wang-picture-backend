@@ -3,9 +3,10 @@ package com.wang.wangpicturebackend.manager.auth.model;
 /**
  * creator: Shajia Wang
  * createTime:2025/2/1---22:07
- * description:
+ * description:空间成员权限常量
  */
 public interface SpaceUserPermissionConstant {
+
     /**
      * 空间用户管理权限
      */

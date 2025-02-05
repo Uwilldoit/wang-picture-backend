@@ -5,6 +5,7 @@ import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.wang.wangpicturebackend.manager.auth.model.SpaceUserAuthConfig;
+import com.wang.wangpicturebackend.manager.auth.model.SpaceUserPermissionConstant;
 import com.wang.wangpicturebackend.manager.auth.model.SpaceUserRole;
 import com.wang.wangpicturebackend.model.entity.Space;
 import com.wang.wangpicturebackend.model.entity.SpaceUser;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -24,6 +26,7 @@ import java.util.List;
  * createTime:2025/2/1---22:08
  * description:
  */
+
 @Component
 public class SpaceUserAuthManager {
 
@@ -71,7 +74,7 @@ public class SpaceUserAuthManager {
             if (userService.isAdmin(loginUser)) {
                 return ADMIN_PERMISSIONS;
             }
-            return new ArrayList<>();
+            return  Collections.singletonList(SpaceUserPermissionConstant.PICTURE_VIEW);
         }
         SpaceTypeEnum spaceTypeEnum = SpaceTypeEnum.getEnumByValue(space.getSpaceType());
         if (spaceTypeEnum == null) {

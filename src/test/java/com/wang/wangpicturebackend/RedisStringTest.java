@@ -49,5 +49,8 @@ public class RedisStringTest {
         storedValue = valueOps.get(key);
         assertNull(storedValue, "删除后的值不为空");
     }
+
+
+
 }
 
